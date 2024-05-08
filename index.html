@@ -20,6 +20,26 @@
 
     <h1>Data Visualisation Project</h1>
 
+    <!-- Dropdowns for country and year selection -->
+    <div class="dropdown_div">
+      <select
+        name="country_dropdown"
+        id="country_dropdown"
+        onchange="SetCountry()"
+      >
+        <option value="Australia">Australia</option>
+        <option value="Austria">Austria</option>
+        <option value="Belgium">Belgium</option>
+      </select>
+
+      <select name="year_dropdown" id="year_dropdown" onchange="SetYear()">
+        <option value="2020">2020</option>
+        <option value="2021">2021</option>
+        <option value="2022">2022</option>
+        <option value="2023">2023</option>
+      </select>
+    </div>
+
     <p id="chart"></p>
 
     <footer>COS30045 Data Visualisation<br />Blair Rod - 103892145</footer>
