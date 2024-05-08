@@ -25,6 +25,11 @@ function SetYear() {
 // Area chart for mortalities
 function DeathChart(dataset) {
 
+    // Set up scale for y
+    yScale = d3.scaleLinear()
+        .domain([0, d3.max(dataset, function (d) { return d.deaths; })])
+        .range([height - padding, 0]);
+
     // Set up the area
     area = d3.area()
         .x(function (d) { return xScale(d.week); })
@@ -56,6 +61,11 @@ function DeathChart(dataset) {
 
 // Line chart for vaccinations
 function VaccinationChart(dataset) {
+    
+    // Set up scale for y
+    yScale = d3.scaleLinear()
+        .domain([0, d3.max(dataset, function (d) { return d.vaccinations; })])
+        .range([height - padding, 0]);
     
     // Set up the line
     line = d3.line()
@@ -92,7 +102,8 @@ function init() {
     d3.csv("/Data/Australia_2020.csv", function (d) {
         return {
             week: +d.Week,
-            deaths: +d.Deaths
+            deaths: +d.Deaths,
+            vaccinations: +d.Vaccinations
         };
         }).then(function (data) {
             dataset = data;
@@ -107,18 +118,18 @@ function init() {
     
             // Set up scale for y
             yScale = d3.scaleLinear()
-                .domain([0, d3.max(dataset, function (d) { return d.vaccinations; })])
+                .domain([0, d3.max(dataset, function (d) { return d.deaths; })])
                 .range([height - padding, 0]);
             
             // Deaths area chart
             DeathChart(dataset)
 
             // Vaccinations line chart
-            // VaccinationChart(dataset)
+            VaccinationChart(dataset)
 
             // test console call of table for selected country and year of week and death
             console.log("Country: " + country + ", Year: " + year);
-            console.table(dataset, ["week", "deaths"]);
+            console.table(dataset, ["week", "deaths", "vaccinations"]);
         });
 
 
