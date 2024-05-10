@@ -3,6 +3,7 @@ var country = "australia";
 // Year the chart will show
 var year = "2020";
 
+var filename = "datasets/australia_2020.csv"
 
 var dataset, width, height, padding, svg, xScale, yScale, xAxis, yAxis, line, area;
 
@@ -10,8 +11,9 @@ var dataset, width, height, padding, svg, xScale, yScale, xAxis, yAxis, line, ar
 function SetCountry() {
     country = document.getElementById("country_dropdown").value;
 
-    // TODO: call function showChart(country)
+    // TODO: call function showChasrt(country)
     console.log("Country: " + country + ", Year: " + year);
+    // filename = country + "_" + year+ ".csv"
 }
 
 // Called when year dropdown is selected, changes charts year.
@@ -20,6 +22,7 @@ function SetYear() {
 
     // TODO: call function showChart(country)
     console.log("Country: " + country + ", Year: " + year);
+    // filename = country + "_" + year + ".csv"
 }
 
 // Area chart for mortalities
@@ -91,7 +94,7 @@ function init() {
     padding = 55;
 
     // Set up the svg
-    svg = d3.select("#chart")
+    svg = d3.select("#mortality_vs_vaccination_chart")
         .append("svg")
         .attr("width", width)
         .attr("height", height);
@@ -99,7 +102,7 @@ function init() {
     // TODO: move to function showChart then call
 
     // Get data from 2020 file
-    d3.csv("/Data/Australia_2020.csv", function (d) {
+    d3.csv(filename, function (d) {
         return {
             week: +d.Week,
             deaths: +d.Deaths,
@@ -132,8 +135,10 @@ function init() {
             console.table(dataset, ["week", "deaths", "vaccinations"]);
         });
 
+        // Map
 
-
+        // Bar
+        
 }
 
 window.onload = init;
