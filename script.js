@@ -131,7 +131,7 @@ function VaccinationChart(dataset) {
     // Set up the path
     svg.append("path")
         .datum(dataset)
-        .attr("class", "linr")
+        .attr("class", "line")
         .attr("d", line);
     
     // TODO: finish line chart
@@ -150,7 +150,9 @@ function init() {
     svg = d3.select("#mortality_vs_vaccination_chart")
         .append("svg")
         .attr("width", width)
-        .attr("height", height);
+        .attr("height", height)
+        .attr("class", "svg");
+    
 
     // TODO: move to function showChart then call
     drawChart();
