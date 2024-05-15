@@ -3,7 +3,7 @@ var country = "australia";
 // Year the chart will show
 var year = "2020";
 
-var filename = "datasets/" + country + "_" + year+ ".csv"
+var filename = "./datasets/" + country + "_" + year+ ".csv"
 
 var dataset, width, height, padding, svg, xScale, yScale, xAxis, yAxis, line, area;
 
