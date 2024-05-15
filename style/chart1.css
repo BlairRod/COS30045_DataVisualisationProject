@@ -1,4 +1,4 @@
-.svg{
+.svg {
     background-color: azure;
     padding: 30px
 }
@@ -14,12 +14,3 @@
     fill: #ee3f2f;
 }
 
-footer{
-    margin: 0;
-    padding: 50px;
-    margin-top: 10px;
-    text-align: center;
-    font-style: italic;
-    color: gray;
-    background-color: lightgray;
-}

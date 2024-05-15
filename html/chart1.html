@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Data Visualisation" />
+    <meta
+      name="keywords"
+      content="HTML, CSS, JS, D3, Data, Visualisation, Project"
+    />
+    <meta name="auther" content="Blair Rod - 103892145" />
+    <title>Data Visualisation Project</title>
+
+    <link rel="stylesheet" href="./style/main.css" />
+    <link rel="stylesheet" href="./style/chart1.css" />
+    <link rel="stylesheet" href="./style/chart2.css" />
+    <!-- d3 -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- Chart 1 -->
+    <script type="text/javascript" src="chart1.js"></script>
+    <!-- Chart 2 -->
+    <script type="text/javascript" src="chart2.js"></script>
+  </head>
+  <body>
+    <!-- Mercury website -->
+    <!-- https://mercury.swin.edu.au/cos30045/s103892145/project/index.html -->
+
+    <h1>Data Visualisation Project</h1>
+    <h2>COVID-19 mortalities and vaccinations by week</h2>
+
+    <!-- CHART 1 mortalities vs vaccinations -->
+    <!-- Dropdowns for country and year selection -->
+    <div class="dropdown_div">
+      <select
+        name="country_dropdown"
+        id="country_dropdown"
+        onchange="SetCountry()"
+      >
+        <option value="Australia">Australia</option>
+      </select>
+
+      <select name="year_dropdown" id="year_dropdown" onchange="SetYear()">
+        <option value="2020">2020</option>
+        <option value="2021">2021</option>
+        <option value="2022">2022</option>
+        <option value="2023">2023</option>
+      </select>
+    </div>
+
+    <p id="mortality_vs_vaccination_chart"></p>
+
+    <footer>COS30045 Data Visualisation<br />Blair Rod - 103892145</footer>
+  </body>
+</html>
