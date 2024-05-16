@@ -1,6 +1,6 @@
 function init() {
     var w = 700;
-    var h = 350; 
+    var h = 450; 
     var padding = 60; 
 
     // Load data from CSV file using D3
@@ -22,14 +22,14 @@ function init() {
             .paddingInner(0.1);
 
         var yScale = d3.scaleLinear()
-            .domain([0, d3.max(data, function(d) { return +d.Deaths; }) * 1.1]) // Adjusted domain to set a maximum value
-            .range([h, 0]);
+            .domain([0, d3.max(data, function(d) { return +d.Deaths; }) * 1.1]) 
+            .range([h - padding, padding]); 
 
         // Select the chart container and append an SVG element
         var svg = d3.select("#deaths_by_age")
             .append("svg")
             .attr("width", w)
-            .attr("height", h + padding); // Increased height to accommodate padding
+            .attr("height", h); 
 
         // Create rectangles for each data point
         svg.selectAll("rect")
@@ -39,7 +39,7 @@ function init() {
             .attr("x", function(d) { return xScale(d.ages); })
             .attr("y", function(d) { return yScale(d.Deaths); })
             .attr("width", xScale.bandwidth())
-            .attr("height", function(d) { return h - yScale(d.Deaths); })
+            .attr("height", function(d) { return h - padding - yScale(d.Deaths); })
             .attr("fill", "steelblue");
 
         // Add text labels on top of each bar
@@ -58,27 +58,25 @@ function init() {
         // Create y-axis label
         svg.append("text")
             .attr("x", w / 2)
-            .attr("y", h + padding / 1.5) // Adjusted position
+            .attr("y", h - padding / 2) 
             .attr("text-anchor", "middle")
             .text("Age Groups");
 
         // Create x-axis label
         svg.append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("x", -h / 2)
-            .attr("y", padding / 2 ) // Adjusted position
-            .attr("text-anchor", "middle")
+            .attr("x", padding / 7) 
+            .attr("y", h - padding * 7 ) 
             .text("Number of Deaths")
             .attr("fill", "black");
 
         // Create y-axis
         svg.append("g")
-            .attr("transform", "translate(" + padding + ",0)") // Adjusted position
+            .attr("transform", "translate(" + padding + ",0)")
             .call(d3.axisLeft(yScale));
 
         // Create x-axis
         svg.append("g")
-            .attr("transform", "translate(0," + h + ")")
+            .attr("transform", "translate(0," + (h - padding) + ")")
             .call(d3.axisBottom(xScale));
     }
 }
