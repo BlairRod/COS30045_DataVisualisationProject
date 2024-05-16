@@ -36,8 +36,8 @@ nav a:hover {
 
 /* Keeps current tab lit */
 nav .active {
-    background-color: black;
-    color: grey;
+    background-color: rgb(148, 155, 154);
+    color: grey;`
 }
 
 nav .active:hover {
