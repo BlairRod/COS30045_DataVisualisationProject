@@ -44,18 +44,6 @@ nav .active:hover {
     background-color: black;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 footer {
     margin: 0;
     padding: 50px;
@@ -65,3 +53,47 @@ footer {
     color: gray;
     background-color: lightgray;
 }
+
+
+/*header*/
+#navbar {position : relative;
+    background-color: #120c21 ;
+    width :100%;
+    color: white;
+    height : 10vh;
+    font-family: verdana;
+    margin-top:-9px;
+    }
+
+#navbar {position:relative;
+  width:100; 
+}
+
+#navbar a{ position: relative;
+    left:50%;
+    top:23px;
+    color:white;
+    text-decoration: none;
+    margin-right:20px;
+    }
+
+#navbar a:hover{
+cursor: pointer;
+background-color: rgba(130,130,130,0.2);
+box-shadow: 0px 0px 0px 10px rgba(130,130,130,0.2);
+border-radius: 1px;
+transition: 0.3s;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
