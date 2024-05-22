@@ -85,6 +85,8 @@ function DrawChart(){
             DrawAxis();
 
             // test console call of table for selected country and year of week and death
+            console.table(dataset, ["week", "deaths"]);
+
             console.log("Country: " + country + ", Year: " + year);
         });
 
