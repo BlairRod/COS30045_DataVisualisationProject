@@ -1,9 +1,28 @@
-/* Navagation bar style */
+/* Navigation bar style */
 nav {
     background-color: grey;
-    padding: 0;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding: 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    padding-left: 20px; /* Adjusted to move h1 more to the left */
+}
+
+nav h1 a {
+    color: floralwhite;
+    text-decoration: none;
+    transition: color 0.5s ease, text-shadow 0.5s ease; /* Smoother transition for color and shadow */
+}
+
+nav h1 a:hover {
+    color: rgb(92, 162, 176); /* Change to a brighter color on hover */
+    text-shadow: 0 0 10px rgb(92, 162, 176), 0 0 20px rgb(92, 162, 176), 0 0 30px rgb(92, 162, 176); /* Special glowing effect */
 }
 
 nav ul {
@@ -11,6 +30,8 @@ nav ul {
     margin: 0;
     padding: 0;
     display: flex;
+    justify-content: center; /* Centers the items horizontally */
+    flex-grow: 1; /* Allows ul to take up available space */
 }
 
 nav li {
@@ -20,28 +41,39 @@ nav li {
 nav a {
     color: floralwhite;
     text-decoration: none;
-    font-size: 30px;
+    font-size: 20px;
     font-weight: bold;
     margin: 0;
     padding: 0;
     height: 30px;
-    transition: background-color 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease; /* Smoother transition */
 }
 
-/* Light up tab on hover */
-nav a:hover {
-    background-color: floralwhite;
-    color: gray;
+
+
+/* Exclude h1 a from hover box shadow and background color effects */
+nav a:not(h1 a):hover {
+    cursor: pointer;
+    background-color: rgba(130, 130, 130, 0.5);
+    box-shadow: 0px 0px 0px 10px rgba(130, 130, 130, 0.5);
+    border-radius: 1px;
+    transition: background-color 0.5s ease, box-shadow 0.5s ease; /* Smoother transition */
 }
 
 /* Keeps current tab lit */
 nav .active {
-    background-color: rgb(148, 155, 154);
-    color: grey;`
+    background-color: rgb(92, 162, 176); /* A distinct color for the active tab */
+    color: white; /* Change font color to stand out */
+    font-weight: bold;
+    border-radius: 5px; /* Optional: Add some rounding to the active tab */
+    padding: 0 10px; /* Optional: Add some padding to make it more prominent */
 }
 
 nav .active:hover {
-    background-color: black;
+    background-color: rgb(72, 142, 156); /* Slightly darker shade on hover */
+    color: white;
 }
 
 footer {
@@ -54,46 +86,20 @@ footer {
     background-color: lightgray;
 }
 
-
-/*header*/
-#navbar {position : relative;
-    background-color: #120c21 ;
-    width :100%;
+/* Header */
+#navbar {
+    position: relative;
+    background-color: #120c21;
+    width: 110%;
     color: white;
-    height : 10vh;
+    height: 10vh;
     font-family: verdana;
-    margin-top:-9px;
-    }
-
-#navbar {position:relative;
-  width:100; 
+    margin-top: -9px;
+    margin-left: -8px;
 }
 
-#navbar a{ position: relative;
-    left:50%;
-    top:23px;
-    color:white;
+#navbar a {
+    color: white;
     text-decoration: none;
-    margin-right:20px;
-    }
-
-#navbar a:hover{
-cursor: pointer;
-background-color: rgba(130,130,130,0.2);
-box-shadow: 0px 0px 0px 10px rgba(130,130,130,0.2);
-border-radius: 1px;
-transition: 0.3s;
+    margin-right: 20px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
