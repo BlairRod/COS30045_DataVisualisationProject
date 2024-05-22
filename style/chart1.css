@@ -3,12 +3,6 @@
     padding: 30px
 }
 
-.line {
-    fill: none;
-    stroke: #7ba9ee;
-    stroke-width: 1px;
-}
-
 .area {
     /* fill: none; */
     fill: #ee3f2f;
