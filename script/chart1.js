@@ -139,7 +139,7 @@ function init() {
 
     // Height and width of svg
     width = 1100;
-    height = 400;
+    height = 410;
     padding = 55;
 
     // Set up the svg

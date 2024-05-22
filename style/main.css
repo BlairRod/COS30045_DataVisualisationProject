@@ -11,18 +11,18 @@ nav h1 {
     font-size: 24px;
     font-weight: bold;
     margin: 0;
-    padding-left: 20px; /* Adjusted to move h1 more to the left */
+    padding-left: 20px; 
 }
 
 nav h1 a {
     color: floralwhite;
     text-decoration: none;
-    transition: color 0.5s ease, text-shadow 0.5s ease; /* Smoother transition for color and shadow */
+    transition: color 0.5s ease, text-shadow 0.5s ease; 
 }
 
 nav h1 a:hover {
-    color: rgb(92, 162, 176); /* Change to a brighter color on hover */
-    text-shadow: 0 0 10px rgb(92, 162, 176), 0 0 20px rgb(92, 162, 176), 0 0 30px rgb(92, 162, 176); /* Special glowing effect */
+    color: rgb(92, 162, 176); 
+    text-shadow: 0 0 10px rgb(92, 162, 176), 0 0 20px rgb(92, 162, 176), 0 0 30px rgb(92, 162, 176); 
 }
 
 nav ul {
@@ -30,8 +30,8 @@ nav ul {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center; /* Centers the items horizontally */
-    flex-grow: 1; /* Allows ul to take up available space */
+    justify-content: center; 
+    flex-grow: 1; 
 }
 
 nav li {
@@ -48,31 +48,31 @@ nav a {
     height: 30px;
     display: flex;
     align-items: center;
-    transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease; /* Smoother transition */
+    transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease; 
 }
 
 
 
-/* Exclude h1 a from hover box shadow and background color effects */
+
 nav a:not(h1 a):hover {
     cursor: pointer;
     background-color: rgba(130, 130, 130, 0.5);
     box-shadow: 0px 0px 0px 10px rgba(130, 130, 130, 0.5);
     border-radius: 1px;
-    transition: background-color 0.5s ease, box-shadow 0.5s ease; /* Smoother transition */
+    transition: background-color 0.5s ease, box-shadow 0.5s ease; 
 }
 
 /* Keeps current tab lit */
 nav .active {
-    background-color: rgb(92, 162, 176); /* A distinct color for the active tab */
-    color: white; /* Change font color to stand out */
+    background-color: rgb(92, 162, 176); 
+    color: white;
     font-weight: bold;
-    border-radius: 5px; /* Optional: Add some rounding to the active tab */
-    padding: 0 10px; /* Optional: Add some padding to make it more prominent */
+    border-radius: 5px; 
+    padding: 0 10px; 
 }
 
 nav .active:hover {
-    background-color: rgb(72, 142, 156); /* Slightly darker shade on hover */
+    background-color: rgb(72, 142, 156); 
     color: white;
 }
 
@@ -90,7 +90,7 @@ footer {
 #navbar {
     position: relative;
     background-color: #120c21;
-    width: 110%;
+    width: 100.4%;
     color: white;
     height: 10vh;
     font-family: verdana;
@@ -102,4 +102,72 @@ footer {
     color: white;
     text-decoration: none;
     margin-right: 20px;
+}
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: rgb(197, 253, 246);
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+    margin-left: -10px; 
+    margin-right: -8.25px;
+    margin-bottom: -8.5px;
+    text-align: center;
+    font-style: italic;
+    color: gray;
+    background-color: lightgray;
+    padding: 20px;
+}
+
+/*box*/
+.content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+  }
+  
+  .section {
+    margin-bottom: 20px;
+  }
+
+  .box {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  font-family: 'Roboto', sans-serif;
+  color: #333; 
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+.box h2 {
+  font-family: 'Montserrat', sans-serif; 
+  font-size: 24px; 
+  font-weight: bold; 
+  color: #555; 
+}
+
+.box p {
+  font-size: 16px; 
+  line-height: 1.6;
+  color: #666; 
 }
