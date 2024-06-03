@@ -48,9 +48,9 @@ function init() {
         .attr("d", path);
 
     // async queue to load up multiple files
-    queue().defer(d3.json, "../files/world-110m.json")
-        .defer(d3.tsv, "../files/world-country-names.tsv")
-        .defer(d3.csv, "../files/world_population.csv")
+    queue().defer(d3.json, "world-110m.json")
+        .defer(d3.tsv, "world-country-names.tsv")
+        .defer(d3.csv, "world_population.csv")
         .await(ready);
     
     function ready(error, world, names, pops) {

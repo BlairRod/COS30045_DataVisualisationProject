@@ -3,7 +3,7 @@ var country = "australia";
 // Year the chart will show
 var year = "2020";
 
-var filename = "./datasets/" + country + "_" + year + ".csv"
+var filename = country + "_" + year + ".csv"
 
 var dataset, width, height, padding, svg, xScale, yScale, xAxis, yAxis, line, area;
 
@@ -13,7 +13,7 @@ function SetCountry() {
 
     // TODO: call function showChasrt(country)
     console.log("Country: " + country + ", Year: " + year);
-    filename = "datasets/" + country + "_" + year + ".csv"
+    filename = country + "_" + year + ".csv"
     // console.log(filename);
     updateChart()
 }
@@ -24,7 +24,7 @@ function SetYear() {
 
     // TODO: call function showChart(country)
     console.log("Country: " + country + ", Year: " + year);
-    filename = "datasets/" + country + "_" + year + ".csv"
+    filename = country + "_" + year + ".csv"
     // console.log(filename);
     updateChart()
 }

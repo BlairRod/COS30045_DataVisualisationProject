@@ -4,7 +4,7 @@ function init() {
     var padding = 60; 
 
     // Load data from CSV file using D3
-    d3.csv("./datasets/morality_by_age.csv").then(function(data) {
+    d3.csv("morality_by_age.csv").then(function(data) {
         // Log the loaded data to the console
         console.log(data);
         var deathData = data;
