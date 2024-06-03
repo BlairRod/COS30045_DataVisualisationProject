@@ -33,3 +33,17 @@
     -moz-border-radius: 10px;
     border-radius: 10px;
 }
+
+.pan rect {
+    opacity: 0.2;
+}
+
+.pan text {
+    font-size: 20px;
+    text-anchor: middle;
+}
+
+.pan:hover rect,
+.pan:hover text {
+    fill: blue;
+}

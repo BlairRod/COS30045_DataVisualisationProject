@@ -1,6 +1,6 @@
 function init() {
 
-    var width = 960;
+    var width = 970;
     var height = 580;
 
     // Color scale
@@ -20,28 +20,31 @@ function init() {
     // Path
     var path = d3.geoPath().projection(projection);
 
-    // Spharical grid
-    var graticule = d3.geoGraticule();
-
+    // SVG setup
     var svg = d3.select("#vaccine_map")
         .append("svg")
         .attr("width", width)
         .attr("height", height);
     
+    // Sphere with grid lines setup
+    var graticule = d3.geoGraticule();
     svg.append("defs")
         .append("path")
         .datum({ type: "Sphere" })
         .attr("id", "sphere")
         .attr("d", path);
     
+    // Sphere outline stroke using link
     svg.append("use")
         .attr("class", "stroke")
         .attr("xlink:href", "#sphere");
     
+    // Sphere outline fill using link
     svg.append("use")
         .attr("class", "fill")
         .attr("xlink:href", "#sphere");
     
+    // Grid of sphere
     svg.append("path")
         .datum(graticule)
         .attr("class", "graticule")
@@ -53,6 +56,7 @@ function init() {
         .defer(d3.csv, "world_population.csv")
         .await(ready);
     
+
     function ready(error, world, names, pops) {
         if (error) throw error;
 
@@ -86,6 +90,7 @@ function init() {
             });
         });
 
+        //  Draw the map
         svg.selectAll(".country")
             .data(countries)
             .enter()
@@ -102,15 +107,115 @@ function init() {
                 return ("<b>" + countryArr[d.id].name +  "</br>" + "Population: " + countryArr[d.id].pop + "</b>");
             }));
         
-        svg.insert("path", ".graticule")
-            .datum(topojson.mesh(world, world.objects.countries, function (a, b) {
-                return a !== b;
-            }))
-            .attr("class", "boundary")
-            .attr("d", path);
+        // svg.insert("path", ".graticule")
+        //     .datum(topojson.mesh(world, world.objects.countries, function (a, b) {
+        //         return a !== b;
+        //     }))
+        //     .attr("class", "boundary")
+        //     .attr("d", path);
+
+        panButtons()
     };
     
-    d3.select(self.frameElement).style("height", height + "px");
+    // d3.select(self.frameElement).style("height", height + "px");
+
+    var panButtons = function () {
+
+        // Top button for panning north
+        var top_button = svg.append("g")
+            .attr("class", "pan")
+            .attr("id", "top_button");
+        
+        top_button.append("rect")
+            .attr("x", 0)
+            .attr("y", 0)
+            .attr("width", width)
+            .attr("height", 25);
+        
+        top_button.append("text")
+            .attr("x", width / 2)
+            .attr("y", 17)
+            .html("&#8679;");
+        
+        // Bottom button for panning south
+        var bottom_button = svg.append("g")
+            .attr("class", "pan")
+            .attr("id", "bottom_button");
+        
+        bottom_button.append("rect")
+            .attr("x", 0)
+            .attr("y", height - 25)
+            .attr("width", width)
+            .attr("height", 25);
+        
+        bottom_button.append("text")
+            .attr("x", width / 2)
+            .attr("y", height - 6)
+            .html("&#8681;");
+        
+        // Left button for panning west
+        var left_button = svg.append("g")
+            .attr("class", "pan")
+            .attr("id", "left_button");
+        
+        left_button.append("rect")
+            .attr("x", 0)
+            .attr("y", 25)
+            .attr("width", 25)
+            .attr("height", height - 50);
+        
+        left_button.append("text")
+            .attr("x", 10)
+            .attr("y", height / 2)
+            .html("&#8678;");
+        
+        // Right button for panning east
+        var right_button = svg.append("g")
+            .attr("class", "pan")
+            .attr("id", "right_button");
+        
+        right_button.append("rect")
+            .attr("x", width - 25)
+            .attr("y", 25)
+            .attr("width", 25)
+            .attr("height", height - 50);
+        
+        right_button.append("text")
+            .attr("x", width - 11)
+            .attr("y", height / 2)
+            .html("&#8680;");
+        
+        // Movement on click function
+        d3.selectAll(".pan")
+            .on("click", function () {
+                // Current position
+                var current = projection.translate();
+                // Distance to move on click
+                var moveDist = 10;
+                // Direction to move on click
+                var direction = d3.select(this).attr("id")
+                switch (direction) {
+                    case "top_button":
+                        current[1] += moveDist;
+                        break;
+                    case "bottom_button":
+                        current[1] -= moveDist;
+                        break;
+                    case "left_button":
+                        current[0] += moveDist;
+                        break;
+                    case "right_button":
+                        current[0] -= moveDist;
+                        break;
+                }
+                projection.translate(current);
+                svg.selectAll("path")
+                    .attr("d", path);
+                
+            });
+
+    }
+
 }
 
 window.onload = init;
