@@ -16,6 +16,7 @@ function init() {
         .translate([width / 2, height / 2])
         .precision(0.1);
 
+
     
     // Path
     var path = d3.geoPath().projection(projection);
@@ -26,26 +27,60 @@ function init() {
         .attr("width", width)
         .attr("height", height);
     
+    // Function to change translate of chart during mouse dragging
+    var dragging = function (d) {
+        // Current translate offset
+        var offset = projection.translate();
+
+        //  Offset following mouse
+        offset[0] += d3.event.dx;
+        offset[1] += d3.event.dy;
+
+        // Update projection
+        projection.translate(offset);
+
+        // Update
+        svg.selectAll("path")
+            .attr("d", path);
+    }
+
+    // Definition of drag behavior
+    var drag = d3.drag()
+        .on("drag", dragging);
+
+    // SVG group container for pannable elemens
+    var map = svg.append("g")
+        .attr("id", "map")
+        .call(drag);
+    
+    // Invisible rect to catch mouse events
+    map.append("rect")
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("width", width)
+        .attr("height", height)
+        .attr("opacity", 0);
+
     // Sphere with grid lines setup
     var graticule = d3.geoGraticule();
-    svg.append("defs")
+    map.append("defs")
         .append("path")
         .datum({ type: "Sphere" })
         .attr("id", "sphere")
         .attr("d", path);
     
     // Sphere outline stroke using link
-    svg.append("use")
+    map.append("use")
         .attr("class", "stroke")
         .attr("xlink:href", "#sphere");
     
     // Sphere outline fill using link
-    svg.append("use")
+    map.append("use")
         .attr("class", "fill")
         .attr("xlink:href", "#sphere");
     
     // Grid of sphere
-    svg.append("path")
+    map.append("path")
         .datum(graticule)
         .attr("class", "graticule")
         .attr("d", path);
@@ -55,7 +90,8 @@ function init() {
         .defer(d3.tsv, "world-country-names.tsv")
         .defer(d3.csv, "world_population.csv")
         .await(ready);
-    
+        
+
 
     function ready(error, world, names, pops) {
         if (error) throw error;
@@ -90,8 +126,9 @@ function init() {
             });
         });
 
+        
         //  Draw the map
-        svg.selectAll(".country")
+        map.selectAll(".country")
             .data(countries)
             .enter()
             .insert("path", ".graticule")
@@ -191,7 +228,7 @@ function init() {
                 // Current position
                 var current = projection.translate();
                 // Distance to move on click
-                var moveDist = 10;
+                var moveDist = 30;
                 // Direction to move on click
                 var direction = d3.select(this).attr("id")
                 switch (direction) {
@@ -210,6 +247,7 @@ function init() {
                 }
                 projection.translate(current);
                 svg.selectAll("path")
+                    .transition()
                     .attr("d", path);
                 
             });
