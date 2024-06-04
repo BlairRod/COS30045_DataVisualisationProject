@@ -34,16 +34,25 @@
     border-radius: 10px;
 }
 
-.pan rect {
+.pan rect,
+.zoom rect {
     opacity: 0.2;
 }
+/* 
+.zoom rect{
+    border-radius: 20%;
+} */
 
-.pan text {
+.pan text,
+.zoom text {
     font-size: 20px;
     text-anchor: middle;
+    user-select: none;
 }
 
 .pan:hover rect,
-.pan:hover text {
+.pan:hover text,
+.zoom:hover rect,
+.zoom:hover text {
     fill: blue;
 }
