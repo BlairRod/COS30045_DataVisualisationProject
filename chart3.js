@@ -42,10 +42,14 @@ function init() {
             .enter()
             .append("rect")
             .attr("x", function(d) { return xScale(d.ages); })
-            .attr("y", function(d) { return yScale(d.Deaths); })
+            .attr("y", h - padding) // Initial y position at the bottom of the chart
             .attr("width", xScale.bandwidth())
-            .attr("height", function(d) { return h - padding - yScale(d.Deaths); })
-            .attr("fill", function(d) { return colorScale(d.Deaths); });
+            .attr("height", 0) // Initial height is 0
+            .attr("fill", function(d) { return colorScale(d.Deaths); })
+            .transition() // Start transition
+            .duration(1000) // Duration of the transition
+            .attr("y", function(d) { return yScale(d.Deaths); })
+            .attr("height", function(d) { return h - padding - yScale(d.Deaths); });
 
         // Add text labels on top of each bar
         svg.selectAll("text")
@@ -54,11 +58,14 @@ function init() {
             .append("text")
             .text(function(d) { return d.Deaths; })
             .attr("x", function(d) { return xScale(d.ages) + xScale.bandwidth() / 2; })
-            .attr("y", function(d) { return yScale(d.Deaths) - 5; })
+            .attr("y", h - padding - 5) // Initial y position at the bottom of the chart
             .attr("font-family", "sans-serif")
             .attr("font-size", "11px")
             .attr("fill", "black")
-            .attr("text-anchor", "middle");
+            .attr("text-anchor", "middle")
+            .transition() // Start transition
+            .duration(1000) // Duration of the transition
+            .attr("y", function(d) { return yScale(d.Deaths) - 5; });
 
         // Create y-axis label
         svg.append("text")
