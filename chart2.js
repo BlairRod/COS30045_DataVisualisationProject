@@ -15,10 +15,10 @@ function init() {
 
     // Projection
     var projection = d3.geoKavrayskiy7()
-        // .scale(170)
-        // .translate([width / 2, height / 2])
-        // .precision(0.1);
-        .translate([0, 0]);
+        .scale(50)
+        .translate([width / 2, height / 2])
+        .precision(0.1);
+        // .translate([0, 0]);
 
     // Path
     var path = d3.geoPath().projection(projection);
@@ -58,7 +58,7 @@ function init() {
     // Function for panning and zooming
     var zooming = function (d) {
         // Console log for event
-        // console.log(d3.event.transform);
+        console.log(d3.event.transform);
 
         // Offset array
         var offset = [
@@ -80,7 +80,7 @@ function init() {
 
     // Definition of zoom behaviour
     var zoom = d3.zoom()
-        .scaleExtent([0.08, 1.0])
+        .scaleExtent([0.07, 1.0])
         .translateExtent([[-5500, -3200],[5500, 3200]])
         .on("zoom", zooming);
     
@@ -92,8 +92,8 @@ function init() {
         .attr("id", "map")
         .call(zoom)
         .call(zoom.transform, d3.zoomIdentity
-            .translate(width - 1400, height - 700)
-            .scale(0.25)
+            .translate(width / 2, height  / 2)
+            .scale(0.08)
             .translate(-center[0], -center[1])
         );
     
@@ -167,7 +167,6 @@ function init() {
                 }
             });
         });
-
         
         //  Draw the map
         map.selectAll(".country")
@@ -372,6 +371,39 @@ function init() {
 
             });
     }
+
+    // Button that positions to Australia
+    d3.select("#aus_btn")
+        .on("click", function () {
+            map.transition()
+                .call(zoom.transform, d3.zoomIdentity
+                    .translate(width / 2, height / 2)
+                    .scale(0.48)
+                    .translate(-3900, -1000)
+            );
+        });
+    
+    // Button that positions to USA
+    d3.select("#usa_btn")
+        .on("click", function () {
+            map.transition()
+                .call(zoom.transform, d3.zoomIdentity
+                    .translate(width / 2, height / 2)
+                    .scale(0.29)
+                    .translate(2800, 1700)
+            );
+        });
+    
+    // Button that positions to USA
+    d3.select("#reset_btn")
+        .on("click", function () {
+            map.transition()
+                .call(zoom.transform, d3.zoomIdentity
+                    .translate(width / 2, height / 2)
+                    .scale(0.08)
+                    .translate(-center[0], -center[1])
+                );
+        });
 
 
 }

@@ -1,3 +1,7 @@
+button{
+    width: 100px;
+}
+
 .stroke {
     fill: none;
     stroke: #000;
