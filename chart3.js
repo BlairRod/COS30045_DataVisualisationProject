@@ -1,7 +1,7 @@
 function init() {
     var w = 700;
-    var h = 450; 
-    var padding = 60; 
+    var h = 450;
+    var padding = 60;
 
     // Load data from CSV file using D3
     d3.csv("morality_by_age.csv").then(function(data) {
@@ -22,14 +22,19 @@ function init() {
             .paddingInner(0.1);
 
         var yScale = d3.scaleLinear()
-            .domain([0, d3.max(data, function(d) { return +d.Deaths; }) * 1.1]) 
-            .range([h - padding, padding]); 
+            .domain([0, d3.max(data, function(d) { return +d.Deaths; }) * 1.1])
+            .range([h - padding, padding]);
+
+        // Create a color scale for the bars
+        var colorScale = d3.scaleLinear()
+            .domain([0, d3.max(data, function(d) { return +d.Deaths; })])
+            .range(["yellow", "red"]);
 
         // Select the chart container and append an SVG element
         var svg = d3.select("#deaths_by_age")
             .append("svg")
             .attr("width", w)
-            .attr("height", h); 
+            .attr("height", h);
 
         // Create rectangles for each data point
         svg.selectAll("rect")
@@ -40,7 +45,7 @@ function init() {
             .attr("y", function(d) { return yScale(d.Deaths); })
             .attr("width", xScale.bandwidth())
             .attr("height", function(d) { return h - padding - yScale(d.Deaths); })
-            .attr("fill", "steelblue");
+            .attr("fill", function(d) { return colorScale(d.Deaths); });
 
         // Add text labels on top of each bar
         svg.selectAll("text")
@@ -58,14 +63,14 @@ function init() {
         // Create y-axis label
         svg.append("text")
             .attr("x", w / 2)
-            .attr("y", h - padding / 2) 
+            .attr("y", h - padding / 2)
             .attr("text-anchor", "middle")
             .text("Age Groups");
 
         // Create x-axis label
         svg.append("text")
-            .attr("x", padding / 7) 
-            .attr("y", h - padding * 7 ) 
+            .attr("x", padding / 7)
+            .attr("y", h - padding * 7)
             .text("Number of Deaths")
             .attr("fill", "black");
 
