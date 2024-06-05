@@ -30,6 +30,17 @@ function init() {
             .domain([0, d3.max(data, function(d) { return +d.Deaths; })])
             .range(["yellow", "red"]);
 
+        // Create a tooltip
+        var tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0)
+            .style("position", "absolute")
+            .style("padding", "8px")
+            .style("background-color", "white")
+            .style("border", "1px solid #ccc")
+            .style("border-radius", "4px")
+            .style("pointer-events", "none");
+
         // Select the chart container and append an SVG element
         var svg = d3.select("#deaths_by_age")
             .append("svg")
@@ -46,6 +57,21 @@ function init() {
             .attr("width", xScale.bandwidth())
             .attr("height", 0) // Initial height is 0
             .attr("fill", function(d) { return colorScale(d.Deaths); })
+            .on("mouseover", function(event, d) {
+                d3.select(this).attr("fill", "orange");
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+                tooltip.html("Age Group: " + d.ages + "<br>Deaths: " + d.Deaths)
+                    .style("left", (event.pageX + 5) + "px")
+                    .style("top", (event.pageY - 28) + "px");
+            })
+            .on("mouseout", function(d) {
+                d3.select(this).attr("fill", function(d) { return colorScale(d.Deaths); });
+                tooltip.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            })
             .transition() // Start transition
             .duration(1000) // Duration of the transition
             .attr("y", function(d) { return yScale(d.Deaths); })
