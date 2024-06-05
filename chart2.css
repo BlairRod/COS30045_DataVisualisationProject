@@ -42,10 +42,6 @@ button{
 .zoom rect {
     opacity: 0.2;
 }
-/* 
-.zoom rect{
-    border-radius: 20%;
-} */
 
 .pan text,
 .zoom text {
@@ -59,4 +55,22 @@ button{
 .zoom:hover rect,
 .zoom:hover text {
     fill: blue;
+}
+
+#map{
+    display: inline;
+}
+
+#svg_div{
+    width: 60%;
+    float: inline-start;
+}
+
+#location_info{
+    width: 20%;
+    float: left;
+    border: 1px solid black;
+    padding: 5px;
+    margin-top: 200px;
+    background-color: lightgray;
 }

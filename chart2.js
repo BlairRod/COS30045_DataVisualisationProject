@@ -58,7 +58,7 @@ function init() {
     // Function for panning and zooming
     var zooming = function (d) {
         // Console log for event
-        console.log(d3.event.transform);
+        // console.log(d3.event.transform);
 
         // Offset array
         var offset = [
@@ -133,20 +133,23 @@ function init() {
     queue().defer(d3.json, "world-110m.json")
         .defer(d3.tsv, "world-country-names.tsv")
         .defer(d3.csv, "world_population.csv")
+        .defer(d3.csv, "vaccine-locations.csv")
         .await(ready);
         
-    function ready(error, world, names, pops) {
+    function ready(error, world, names, pops, vaccines) {
         if (error) throw error;
 
         var countries = topojson.feature(world, world.objects.countries).features;
         var neighbors = topojson.neighbors(world.objects.countries.geometries);
 
         // Country object
-        function countryData(code, name, pop, id) {
+        function countryData(code, name, pop, id, vaccine, source) {
             this.code = code;
             this.name = name;
             this.pop = pop;
             this.id = id;
+            this.vaccine = vaccine;
+            this.source = source;
         }
 
         // Array of country objects
@@ -167,6 +170,16 @@ function init() {
                 }
             });
         });
+
+        countryArr.forEach(function (i) {
+            vaccines.forEach(function (j) {
+                if (i.name == j.location) {
+                    i.vaccine = j.vaccines;
+                    i.source = j.source_website;
+                }
+            });
+        });
+
         
         //  Draw the map
         map.selectAll(".country")
@@ -182,8 +195,15 @@ function init() {
             })
             .call(d3.helper.tooltip(function (d, i) {
                 // Info shown in tooltip, currently "country name: country population"
-                return ("<b>" + countryArr[d.id].name +  "</br>" + "Population: " + thousandFormat(countryArr[d.id].pop) + "</b>");
-            }));
+                return ("<b>" + countryArr[d.id].name + "</br>");
+            }))
+            .on("click", function (d) {
+                showCountryData(countryArr[d.id])
+            })
+        
+        // Labels
+        // map.selectAll("text")
+        //     .data(json.features);
         
         // svg.insert("path", ".graticule")
         //     .datum(topojson.mesh(world, world.objects.countries, function (a, b) {
@@ -404,6 +424,20 @@ function init() {
                     .translate(-center[0], -center[1])
                 );
         });
+    
+    function showCountryData(country) {
+        // console.log(country.name)
+        // console.log(country.code)
+        // console.log(country.pop)
+        // console.log(country.vaccine)
+        // console.log(country.source)
+        var countryInfo = document.getElementById("location_info");
+        countryInfo.innerHTML = "<h4>" + country.name + "</h4>" +
+            "<p>Population: " + thousandFormat(country.pop) + "</p>" +
+            "<p>Vaccines: " + country.vaccine + "</br>" +
+            "<p><a href=" + country.source + ">Source</a></p>";
+    
+    }
 
 
 }
