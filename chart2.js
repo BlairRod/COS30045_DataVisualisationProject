@@ -80,6 +80,8 @@ function init() {
 
     // Definition of zoom behaviour
     var zoom = d3.zoom()
+        .scaleExtent([0.08, 1.0])
+        .translateExtent([[-5500, -3200],[5500, 3200]])
         .on("zoom", zooming);
     
     // Map center
