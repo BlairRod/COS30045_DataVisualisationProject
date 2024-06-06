@@ -35,8 +35,21 @@
 
     <h2>COVID-19 Mortalities By Age Groups</h2>
 
+
+    <div class="dropdowndiv">
+      <select
+        name="countrydropdown_age"
+        id="country_dropdown_age"
+        onchange="SetCountry_age()">
+        <option value="worldwide">Worldwide</option>
+        <option value="australia">Australia</option>
+        <option value="unitedstates">United States</option>
+        <option value="newzealand">New Zealand</option>
+      </select>
+      </div>
+
     <!-- CHART 3 -->
-    <p id="deaths_by_age"></p>
+    <div><p id="deaths_by_age"></p></div>
 
     <footer>
       COS30045 Data Visualisation<br />Blair Rod - 103892145 <br />

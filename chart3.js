@@ -1,122 +1,172 @@
+var country = "Worldwide";
+var filename = "mortality_by_age_" + country + ".csv";
+var svg, width = 700, height = 450, padding = 60;
+
 function init() {
-    var w = 700;
-    var h = 450;
-    var padding = 60;
+    // Set up the svg
+    svg = d3.select("#deaths_by_age")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
 
-    // Load data from CSV file using D3
-    d3.csv("morality_by_age.csv").then(function(data) {
-        // Log the loaded data to the console
-        console.log(data);
-        var deathData = data;
+    // Load initial data and draw the chart
+    updateChart();
+}
 
-        // Call the barChart function with loaded data
-        barChart(deathData);
+function SetCountry_age() {
+    country = document.getElementById("country_dropdown_age").value;
+    console.log("Country: " + country);
+    filename = "mortality_by_age_" + country + ".csv";
+    updateChart();
+}
+
+function updateChart() {
+    d3.csv(filename).then(function(data) {
+        // Draw the updated chart
+        barChart(data);
     });
+}
 
-    // Function to create a bar chart
-    function barChart(data) {
-        // Create scales for x and y axes
-        var xScale = d3.scaleBand()
-            .domain(data.map(function(d) { return d.ages; }))
-            .range([padding, w - padding]) // Adjusted range to accommodate padding
-            .paddingInner(0.1);
+function barChart(data) {
+    // Create scales for x and y axes
+    var xScale = d3.scaleBand()
+        .domain(data.map(function(d) { return d.ages; }))
+        .range([padding, width - padding])
+        .paddingInner(0.1);
 
-        var yScale = d3.scaleLinear()
-            .domain([0, d3.max(data, function(d) { return +d.Deaths; }) * 1.1])
-            .range([h - padding, padding]);
+    var yScale = d3.scaleLinear()
+        .domain([0, d3.max(data, function(d) { return +d.Deaths; }) * 1.1])
+        .range([height - padding, padding]);
 
-        // Create a color scale for the bars
-        var colorScale = d3.scaleLinear()
-            .domain([0, d3.max(data, function(d) { return +d.Deaths; })])
-            .range(["yellow", "red"]);
+    var colorScale = d3.scaleLinear()
+        .domain([0, d3.max(data, function(d) { return +d.Deaths; })])
+        .range(["yellow", "red"]);
 
-        // Create a tooltip
-        var tooltip = d3.select("body").append("div")
-            .attr("class", "tooltip")
-            .style("opacity", 0)
-            .style("position", "absolute")
-            .style("padding", "8px")
-            .style("background-color", "white")
-            .style("border", "1px solid #ccc")
-            .style("border-radius", "4px")
-            .style("pointer-events", "none");
+    var tooltip = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0)
+        .style("position", "absolute")
+        .style("padding", "8px")
+        .style("background-color", "white")
+        .style("border", "1px solid #ccc")
+        .style("border-radius", "4px")
+        .style("pointer-events", "none");
 
-        // Select the chart container and append an SVG element
-        var svg = d3.select("#deaths_by_age")
-            .append("svg")
-            .attr("width", w)
-            .attr("height", h);
+    // Bind data to rectangles (bars)
+    var bars = svg.selectAll("rect")
+        .data(data, function(d) { return d.ages; });
 
-        // Create rectangles for each data point
-        svg.selectAll("rect")
-            .data(data)
-            .enter()
-            .append("rect")
-            .attr("x", function(d) { return xScale(d.ages); })
-            .attr("y", h - padding) // Initial y position at the bottom of the chart
-            .attr("width", xScale.bandwidth())
-            .attr("height", 0) // Initial height is 0
-            .attr("fill", function(d) { return colorScale(d.Deaths); })
-            .on("mouseover", function(event, d) {
-                d3.select(this).attr("fill", "orange");
-                tooltip.transition()
-                    .duration(200)
-                    .style("opacity", .9);
-                tooltip.html("Age Group: " + d.ages + "<br>Deaths: " + d.Deaths)
-                    .style("left", (event.pageX + 5) + "px")
-                    .style("top", (event.pageY - 28) + "px");
-            })
-            .on("mouseout", function(d) {
-                d3.select(this).attr("fill", function(d) { return colorScale(d.Deaths); });
-                tooltip.transition()
-                    .duration(500)
-                    .style("opacity", 0);
-            })
-            .transition() // Start transition
-            .duration(1000) // Duration of the transition
-            .attr("y", function(d) { return yScale(d.Deaths); })
-            .attr("height", function(d) { return h - padding - yScale(d.Deaths); });
+    // Remove exiting bars
+    bars.exit()
+        .transition()
+        .duration(1000)
+        .attr("y", height - padding)
+        .attr("height", 0)
+        .style("fill-opacity", 0.1)
+        .remove();
 
-        // Add text labels on top of each bar
-        svg.selectAll("text")
-            .data(data)
-            .enter()
-            .append("text")
-            .text(function(d) { return d.Deaths; })
-            .attr("x", function(d) { return xScale(d.ages) + xScale.bandwidth() / 2; })
-            .attr("y", h - padding - 5) // Initial y position at the bottom of the chart
-            .attr("font-family", "sans-serif")
-            .attr("font-size", "11px")
-            .attr("fill", "black")
-            .attr("text-anchor", "middle")
-            .transition() // Start transition
-            .duration(1000) // Duration of the transition
-            .attr("y", function(d) { return yScale(d.Deaths) - 5; });
+    // Update existing bars
+    bars.transition()
+        .duration(1000)
+        .attr("x", function(d) { return xScale(d.ages); })
+        .attr("y", function(d) { return yScale(d.Deaths); })
+        .attr("width", xScale.bandwidth())
+        .attr("height", function(d) { return height - padding - yScale(d.Deaths); })
+        .attr("fill", function(d) { return colorScale(d.Deaths); });
 
-        // Create y-axis label
-        svg.append("text")
-            .attr("x", w / 2)
-            .attr("y", h - padding / 2)
-            .attr("text-anchor", "middle")
-            .text("Age Groups");
+    // Enter new bars
+    bars.enter().append("rect")
+        .attr("x", function(d) { return xScale(d.ages); })
+        .attr("y", height - padding)
+        .attr("width", xScale.bandwidth())
+        .attr("height", 0)
+        .attr("fill", function(d) { return colorScale(d.Deaths); })
+        .on("mouseover", function(event, d) {
+            d3.select(this).attr("fill", "orange");
+            tooltip.transition()
+                .duration(200)
+                .style("opacity", .9);
+            tooltip.html("Age Group: " + d.ages + "<br>Deaths: " + d.Deaths)
+                .style("left", (event.pageX + 5) + "px")
+                .style("top", (event.pageY - 28) + "px");
+        })
+        .on("mouseout", function(d) {
+            d3.select(this).attr("fill", function(d) { return colorScale(d.Deaths); });
+            tooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
+        })
+        .transition()
+        .duration(1000)
+        .attr("y", function(d) { return yScale(d.Deaths); })
+        .attr("height", function(d) { return height - padding - yScale(d.Deaths); });
 
-        // Create x-axis label
-        svg.append("text")
-            .attr("x", padding / 7)
-            .attr("y", h - padding * 7)
-            .text("Number of Deaths")
-            .attr("fill", "black");
+    // Add text labels on top of each bar
+    var labels = svg.selectAll("text.label")
+        .data(data, function(d) { return d.ages; });
 
-        // Create y-axis
-        svg.append("g")
-            .attr("transform", "translate(" + padding + ",0)")
-            .call(d3.axisLeft(yScale));
+    // Remove exiting labels
+    labels.exit()
+        .transition()
+        .duration(1000)
+        .attr("y", height - padding)
+        .style("fill-opacity", 0.1)
+        .remove();
 
-        // Create x-axis
-        svg.append("g")
-            .attr("transform", "translate(0," + (h - padding) + ")")
-            .call(d3.axisBottom(xScale));
-    }
+    // Update existing labels
+    labels.transition()
+        .duration(1000)
+        .attr("x", function(d) { return xScale(d.ages) + xScale.bandwidth() / 2; })
+        .attr("y", function(d) { return yScale(d.Deaths) - 5; })
+        .text(function(d) { return d.Deaths; });
+
+    // Enter new labels
+    labels.enter().append("text")
+        .attr("class", "label")
+        .attr("x", function(d) { return xScale(d.ages) + xScale.bandwidth() / 2; })
+        .attr("y", height - padding)
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "11px")
+        .attr("fill", "black")
+        .attr("text-anchor", "middle")
+        .text(function(d) { return d.Deaths; })
+        .transition()
+        .duration(1000)
+        .attr("y", function(d) { return yScale(d.Deaths) - 5; });
+
+    // Create x-axis label
+    svg.selectAll("text.x-label").remove();
+    svg.append("text")
+        .attr("class", "x-label")
+        .attr("x", width / 2)
+        .attr("y", height - padding / 2)
+        .attr("text-anchor", "middle")
+        .text("Age Groups");
+
+    // Create y-axis label
+    svg.selectAll("text.y-label").remove();
+    svg.append("text")
+        .attr("class", "y-label")
+        .attr("x", height / 6.5)
+        .attr("y", padding / 1.75)
+        .attr("transform", "rotate(0)")
+        .attr("text-anchor", "middle")
+        .text("Number of Deaths")
+        .attr("fill", "black");
+
+    // Create y-axis
+    svg.selectAll("g.y-axis").remove();
+    svg.append("g")
+        .attr("class", "y-axis")
+        .attr("transform", "translate(" + padding + ",0)")
+        .call(d3.axisLeft(yScale));
+
+    // Create x-axis
+    svg.selectAll("g.x-axis").remove();
+    svg.append("g")
+        .attr("class", "x-axis")
+        .attr("transform", "translate(0," + (height - padding) + ")")
+        .call(d3.axisBottom(xScale));
 }
 
 window.onload = init;
