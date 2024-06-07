@@ -15,7 +15,7 @@ Bahamas,BHS,323295
 Bangladesh,BGD,15328112
 Belize,BLZ,275546
 Bosnia and Herzegovina,BIH,3915238
-Bolivia,BOL,9182015
+Plurinational State of Bolivia,BOL,9182015
 Burma,MMR,47967266
 Benin,BEN,8490301
 Solomon Islands,SLB,472419
@@ -42,6 +42,7 @@ Central African Republic,CAF,4191429
 Cuba,CUB,11259905
 Cape Verde,CPV,506807
 Cook Islands,COK,13984
+Northern Cyprus,TRNC,326000
 Cyprus,CYP,836321
 Denmark,DNK,5416945
 Djibouti,DJI,804206
@@ -82,7 +83,7 @@ Croatia,HRV,455149
 Hungary,HUN,10086387
 Iceland,ISL,295732
 India,IND,1134403141
-Iran (Islamic Republic of),IRN,69420607
+Islamic Republic of Iran,IRN,69420607
 Israel,ISR,6692037
 Italy,ITA,5864636
 Cote d'Ivoire,CIV,18584701
@@ -92,9 +93,10 @@ Jamaica,JAM,2682469
 Jordan,JOR,5544066
 Kenya,KEN,35598952
 Kyrgyzstan,KGZ,5203547
-Korea, Democratic People's Republic of,PRK,23615611
+Democratic People's Republic of Korea,PRK,23615611
 Kiribati,KIR,92003
-Korea, Republic of,KOR,47869837
+Republic of Korea,KOR,47869837
+Kosovo,KV,1873000
 Kuwait,KWT,2700
 Kazakhstan,KAZ,15210609
 Lao People's Democratic Republic,LAO,566391
@@ -143,13 +145,13 @@ Mayotte,MYT,0
 Åland Islands,ALA,0
 Norfolk Island,NFK,0
 Cocos (Keeling) Islands,CCK,0
-Antarctica,ATA,0
+Antarctica,ATA,5000
 Bouvet Island,BVT,0
-French Southern and Antarctic Lands,ATF,0
+French Southern Territories,ATF,0
 Heard Island and McDonald Islands,HMD,0
 British Indian Ocean Territory,IOT,0
 Christmas Island,CXR,0
-United States Minor Outlying Islands,UMI,0
+United States Minor Outlying Islands,UMI,300
 Vanuatu,VUT,215366
 Nigeria,NGA,141356083
 Netherlands,NLD,1632769
@@ -173,7 +175,7 @@ Romania,ROU,21627557
 Republic of Moldova,MDA,3876661
 Philippines,PHL,84566163
 Puerto Rico,PRI,3946779
-Russia,RUS,143953092
+Russian Federation,RUS,143953092
 Rwanda,RWA,9233793
 Saudi Arabia,SAU,2361236
 Saint Kitts and Nevis,KNA,49138
@@ -212,7 +214,7 @@ Burkina Faso,BFA,13933363
 Uruguay,URY,3325727
 Uzbekistan,UZB,26593123
 Saint Vincent and the Grenadines,VCT,119137
-Venezuela,VEN,26725573
+Bolivarian Republic of Venezuela,VEN,26725573
 British Virgin Islands,VGB,22016
 Viet Nam,VNM,85028643
 United States Virgin Islands,VIR,111408
