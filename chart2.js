@@ -18,7 +18,6 @@ function init() {
         .scale(50)
         .translate([width / 2, height / 2])
         .precision(0.1);
-        // .translate([0, 0]);
 
     // Path
     var path = d3.geoPath().projection(projection);
@@ -28,37 +27,9 @@ function init() {
         .append("svg")
         .attr("width", width)
         .attr("height", height);
-    
-    // // Function to change translate of chart during mouse dragging
-    // var dragging = function (d) {
-    //     // Current translate offset
-    //     var offset = projection.translate();
-
-    //     //  Offset following mouse
-    //     offset[0] += d3.event.dx;
-    //     offset[1] += d3.event.dy;
-
-    //     // Update projection
-    //     projection.translate(offset);
-
-    //     // Update
-    //     svg.selectAll("path")
-    //         .attr("d", path);
-    // }
-
-    // // Definition of drag behavior
-    // var drag = d3.drag()
-    //     .on("drag", dragging);
-
-    // // SVG group container for pannable elemens
-    // var map = svg.append("g")
-    //     .attr("id", "map")
-    //     .call(drag);
 
     // Function for panning and zooming
     var zooming = function (d) {
-        // Console log for event
-        // console.log(d3.event.transform);
 
         // Offset array
         var offset = [
@@ -200,23 +171,10 @@ function init() {
             .on("click", function (d) {
                 showCountryData(countryArr[d.id])
             })
-        
-        // Labels
-        // map.selectAll("text")
-        //     .data(json.features);
-        
-        // svg.insert("path", ".graticule")
-        //     .datum(topojson.mesh(world, world.objects.countries, function (a, b) {
-        //         return a !== b;
-        //     }))
-        //     .attr("class", "boundary")
-        //     .attr("d", path);
 
         panButtons()
         zoomButtons();
     };
-    
-    // d3.select(self.frameElement).style("height", height + "px");
 
     // Creates buttons for panning
     var panButtons = function () {
@@ -292,8 +250,6 @@ function init() {
         // Movement on click function
         d3.selectAll(".pan")
             .on("click", function () {
-                // Current position
-                // var current = projection.translate();
                 // Distance to move on click
                 var moveDist = 100;
                 var x = 0;
@@ -314,11 +270,6 @@ function init() {
                         x -= moveDist;
                         break;
                 }
-
-                // projection.translate(current);
-                // svg.selectAll("path")
-                //     .transition()
-                //     .attr("d", path);
 
                 map.transition()
                     .call(zoom.translateBy, x, y);
@@ -425,12 +376,8 @@ function init() {
                 );
         });
     
+    // Displays information for clicked countries next to map
     function showCountryData(country) {
-        // console.log(country.name)
-        // console.log(country.code)
-        // console.log(country.pop)
-        // console.log(country.vaccine)
-        // console.log(country.source)
         var countryInfo = document.getElementById("location_info");
         countryInfo.innerHTML = "<h4>" + country.name + "</h4>" +
             "<p>Population: " + thousandFormat(country.pop) + "</p>" +
